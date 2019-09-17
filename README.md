@@ -14,7 +14,7 @@ aplicación de búsqueda y listado de recetas.
 Se deben crear 2 servicios utilizando Symfony 4:
 * uno que permita buscar recetas en base una cadena de búsqueda
 * uno que retorne los datos necesarios para pintar la lista de recetas de la
-siguiente pantalla de la aplicación [Runtasty]:
+siguiente pantalla:
   
 ![Runtasty recipe list][screenshot] 
 
@@ -42,7 +42,6 @@ o Bitbucket con el historial completo de git.
 * Eres libre de hacer las peticiones al API como más te guste. Nosotros
   utilizamos [Guzzle], pero usa lo que prefieras.
 
-[Runtasty]: https://play.google.com/store/apps/details?id=com.runtastic.android.runtasty.lite 
 [screenshot]: runtasty-screenshot.png
 [RecipePuppy]: http://www.recipepuppy.com/about/api/
 [PSR-1]: http://www.php-fig.org/psr/psr-1/
