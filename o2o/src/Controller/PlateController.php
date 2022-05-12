@@ -44,8 +44,10 @@ class PlateController extends AbstractController
         if(!$searchFood){
             return $dataResponse = new JsonResponse(['message' => "Ha realizado una búsqueda vacía, por favor envíe un parametro valido"]);
         }else{
+            $pathUri='https://api.punkapi.com/v2/beers';
+            $client = new \GuzzleHttp\Client();
             $keyToSearch = array('id', 'name', 'description');
-            $statusApi = $client->request('GET', $pathUri);
+            $statusApi = $client->request('GET', $pathUri.'?food='.$searchFood);
             $response = new JsonResponse();
             if($statusApi->getStatusCode()==200){
                 $resApi = json_decode($statusApi->getBody(), true); 
