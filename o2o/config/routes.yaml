@@ -1,9 +1,7 @@
 index:
-    path: /food/{searchString}
+    path: /food
     controller: App\Controller\PlateController::searchingFood
     methods: [GET]
-    defaults:
-        searchString: ''
 
 detail:
     path: /food/detail/{searchFood}
