@@ -18,29 +18,42 @@ class PlateController extends AbstractController
     /**
     * @Route("/", name="searchingFood")
     */
-    public function searchingFood(Request $request,  FilterFood $filterFood, $searchString=''): Response
+    public function searchingFood(Request $request,  FilterFood $filterFood): Response
     {
         $pathUri='https://api.punkapi.com/v2/beers';
         $client = new \GuzzleHttp\Client();
-        if(!$searchString){
-            $searchString = $request->request->get("searchString", null);
-        }
-        if(!$searchString){
-            $keyToSearch = array('id', 'name', 'description');
-            $responseApi = $client->request('GET', $pathUri);
-        }else{
-            $keyToSearch = array('id', 'name', 'description', 'image_url', 'tagline', 'first_brewed');
-            $responseApi = $client->request('GET', $pathUri.'?food='.$searchString); 
-        }
         
-        $response = new JsonResponse();
-        if($responseApi->getStatusCode()==200){
-            $dataArray = json_decode($responseApi->getBody(), true); 
-            $dataResponse=$filterFood->changeToArray($dataArray, $keyToSearch);
+        $keyToSearch = array('id', 'name', 'description');
+        $statusApi = $client->request('GET', $pathUri);
+        
+        if($statusApi->getStatusCode()==200){
+            $resApi = json_decode($statusApi->getBody(), true); 
+            $dataResponse=$filterFood->changeToArray($resApi, $keyToSearch);
         }else{
             $dataResponse =['message' => "Ha ocurrido un error"];
         }
-        
         return $response = new JsonResponse($dataResponse);
+    }
+    
+    public function searchingFoodDetail(Request $request,  FilterFood $filterFood, $searchFood=''): Response
+    {
+        
+        if(!$searchFood){
+            $searchFood = $request->request->get("searchFood", null);
+        } 
+        if(!$searchFood){
+            return $dataResponse = new JsonResponse(['message' => "Ha realizado una búsqueda vacía, por favor envíe un parametro valido"]);
+        }else{
+            $keyToSearch = array('id', 'name', 'description');
+            $statusApi = $client->request('GET', $pathUri);
+            $response = new JsonResponse();
+            if($statusApi->getStatusCode()==200){
+                $resApi = json_decode($statusApi->getBody(), true); 
+                $dataResponse=$filterFood->changeToArray($resApi, $keyToSearch);
+            }else{
+                $dataResponse =['message' => "Ha ocurrido un error"];
+            }
+            return $response = new JsonResponse($dataResponse);
+        }
     }
 }
