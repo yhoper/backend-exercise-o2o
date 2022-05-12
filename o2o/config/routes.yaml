@@ -1,3 +1,13 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+index:
+    path: /food/{searchString}
+    controller: App\Controller\PlateController::searchingFood
+    methods: [GET]
+    defaults:
+        searchString: ''
+
+detail:
+    path: /food/detail/{searchFood}
+    controller: App\Controller\PlateController::searchingFoodDetail
+    methods: [GET]
+    defaults:
+        searchFood: ''
